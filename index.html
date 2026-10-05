@@ -27,8 +27,8 @@ body.scene-3::before { opacity:.25; } body.scene-3::after { opacity:1; }
 
 /* stage / headline */
 .stage { position:relative; width:100%; max-width:1240px; margin:0 auto; padding:0 24px;
-         flex:1; display:flex; flex-direction:column; justify-content:center; }
-.headline { text-align:center; padding:22px 16px 4px; position:relative; min-height:86px; }
+         flex:1; display:flex; flex-direction:column; justify-content:center; min-height:0; }
+.headline { text-align:center; padding:14px 16px 2px; position:relative; min-height:78px; flex:none; }
 .headline .hl { transition:opacity .4s ease; }
 .headline .hl.off { opacity:0; position:absolute; inset:22px 16px auto; pointer-events:none; }
 .headline .kick { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:800; letter-spacing:.12em;
@@ -41,13 +41,13 @@ body.scene-3::before { opacity:.25; } body.scene-3::after { opacity:1; }
 .headline p { margin:0 auto; font-size:14.5px; color:#3e3e3c; opacity:.85; max-width:760px; }
 
 /* sliding world: one scene = 1000 units, world = 2400 units */
-:root { --content: min(1240px, calc(100vw - 48px), calc((100vh - 200px) * 1.6129)); }
-@media (min-width: 1280px) and (min-height: 800px) {
-  :root { --content: min(1320px, calc(100vw - 48px), calc((100vh - 200px) * 1.6129)); }
+:root { --content: min(1240px, calc(100vw - 48px), calc((100vh - 168px) * 1.55)); }
+@media (min-width: 1280px) and (min-height: 860px) {
+  :root { --content: min(1320px, calc(100vw - 48px), calc((100vh - 168px) * 1.55)); }
   .stage { max-width: 1320px; }
 }
-.viewport { position:relative; overflow:hidden; margin:6px 0 0; width:100vw; margin-left:calc(50% - 50vw);
-            height:calc(var(--content) * 0.6200); }
+.viewport { position:relative; overflow:hidden; margin:4px 0 0; width:100vw; margin-left:calc(50% - 50vw);
+            height:calc(var(--content) * 0.6200); flex:none; }
 .world { position:absolute; top:0; height:100%; width:calc(var(--content) * 2.4);
          left:calc(50% - var(--content) / 2); transform:translateX(0);
          transition:transform 1.1s cubic-bezier(.62,.02,.2,1); }
@@ -65,29 +65,39 @@ body.scene-3 .link.s2 { opacity:.5; }
 body.scene-2 .s2, body.scene-3 .s3 { transition-delay:calc(500ms + var(--i,0) * 90ms); }
 
 /* source tiles (scene 1) */
-.sources { position:absolute; top:0; left:0; width:13.75%; height:100%; }
-.src-section-label { position:absolute; left:0; width:100%; transform:translateY(-50%);
-                     font-size:13px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+.sources { position:absolute; top:1%; left:0; width:15.5%; height:98%;
+           display:flex; flex-direction:column; justify-content:space-between; gap:12px; }
+.src-group { display:flex; flex-direction:column; gap:5px; min-height:0; }
+.src-section-label { position:static; transform:none; flex:none;
+                     font-size:10px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
                      color:#032d60; opacity:.85; padding:0 2px; white-space:nowrap;
                      transition:opacity .4s ease; }
-.src-tile { position:absolute; left:0; width:100%; transform:translateY(-50%);
-            display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:12px;
+.src-tile { position:static; transform:none; width:100%;
+            display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:10px;
             background:#fff; border:1px solid #e5e5e5; box-shadow:0 2px 3px rgba(0,0,0,.06);
             transition:opacity .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
             transition-delay:calc(var(--i) * 70ms); }
-.src-tile:hover { transform:translateY(-50%) scale(1.04); }
-.src-ico { width:34px; height:34px; flex:0 0 34px; display:grid; place-items:center; border-radius:9px; background:#eef4fb; color:#0176d3; }
-.src-ico svg { width:19px; height:19px; }
+.src-tile:hover { transform:scale(1.03); }
+.src-ico { width:28px; height:28px; flex:0 0 28px; display:grid; place-items:center; border-radius:8px; background:#eef4fb; color:#0176d3; }
+.src-ico svg { width:16px; height:16px; }
 .src-meta { min-width:0; flex:1; }
-.src-name { font-weight:650; font-size:13.5px; line-height:1.15; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.src-name { font-weight:650; font-size:12px; line-height:1.15; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .src-vendor { font-size:11px; opacity:.62; margin-top:1px; }
-.src-role { font-size:10.5px; opacity:.55; margin-top:2px; line-height:1.25; }
+.src-role { display:none; font-size:9.5px; opacity:.55; margin-top:1px; line-height:1.2; }
+@media (min-height: 900px) {
+  .src-role { display:block; }
+  .src-tile { padding:7px 10px; gap:10px; }
+  .src-ico { width:34px; height:34px; flex-basis:34px; border-radius:9px; }
+  .src-ico svg { width:19px; height:19px; }
+  .src-name { font-size:13px; }
+  .src-section-label { font-size:11px; }
+}
 .logo-slot { flex:0 0 auto; width:70px; height:34px; display:grid; place-items:center; }
 .logo-slot img { max-width:66px; max-height:22px; object-fit:contain; display:block; }
 .logo-slot.sf img { max-height:30px; }
 .logo-slot .txt { font-size:9px; font-weight:800; letter-spacing:.04em; color:#5c6b7a; text-align:center; line-height:1.1; }
 .tbd { font-size:8.5px; font-weight:800; letter-spacing:.08em; padding:2px 6px; border-radius:20px; background:#fef0d9; color:#8f5503; }
-body:not(.scene-1) .src-tile { opacity:0; transform:translateY(-50%) translateX(-18px); }
+body:not(.scene-1) .src-tile { opacity:0; transform:translateX(-18px); }
 body:not(.scene-1) .src-section-label { opacity:0; }
 
 /* hubs */
@@ -113,34 +123,43 @@ body.scene-3 #hubhl, body.scene-3 #caphl { opacity:1; transition-delay:.55s; }
 .record::-webkit-scrollbar { width:0; height:0; }
 .record:hover { transform:translateY(-50%) scale(1.02); }
 body.scene-2 .record { box-shadow:0 10px 30px rgba(1,118,211,.26); }
-.rec-hero { position:relative; padding:14px 16px 12px; text-align:center; overflow:hidden;
+.rec-hero { position:relative; padding:12px 14px 10px; text-align:center; overflow:hidden;
             background:linear-gradient(135deg,#00331e,#005a36); color:#fff; }
 .rec-hero::before { content:""; position:absolute; right:-24px; top:-40px; width:34px; height:200px; background:#008751; transform:rotate(32deg); opacity:.95; }
 .rec-hero > * { position:relative; }
 .rec-tier-badge { display:inline-block; font-size:10px; font-weight:800; letter-spacing:.12em; padding:4px 12px; border-radius:20px; margin-bottom:10px;
                   background:#008751; color:#ffffff; }
-.rec-photo { width:86px; height:86px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 8px; border:3px solid rgba(255,255,255,.9); }
-.rec-name { font-weight:750; font-size:17px; }
-.rec-sub { font-size:10.5px; color:#d6d3c8; margin-top:2px; }
+.rec-photo { width:64px; height:64px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 6px; border:3px solid rgba(255,255,255,.9); }
+.rec-name { font-weight:750; font-size:16px; }
+.rec-sub { font-size:10px; color:#d6d3c8; margin-top:2px; }
 .rec-badge { position:absolute !important; top:14px; left:14px; font-size:9px; font-weight:700; letter-spacing:.1em; padding:3px 8px; border-radius:20px; background:#acf3e4; color:#056764; }
 .rec-stats2 { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid #eee; }
 .rec-stat { padding:12px 16px; display:flex; flex-direction:column; gap:3px; }
 .rec-stat + .rec-stat { border-left:1px solid #eee; }
 .rec-big { font-size:21px; font-weight:750; line-height:1; color:#032d60; }
 .rec-fine { font-size:10px; opacity:.6; line-height:1.35; }
-.rec-section { padding:12px 16px 14px; border-top:1px solid #f0f0f0; }
+.rec-section { padding:10px 12px 10px; border-top:1px solid #f0f0f0; }
 .rec-label { font-size:9.5px; text-transform:uppercase; letter-spacing:.08em; opacity:.55; }
-.rec-metrics { display:grid; grid-template-columns:1fr 1fr; margin-top:10px; border:1px solid #e8eef5; border-radius:10px; overflow:hidden; background:#fbfdff; }
-.rec-metric { padding:12px 14px; display:flex; flex-direction:column; gap:3px; }
+.rec-metrics { display:grid; grid-template-columns:1fr 1fr; margin-top:8px; border:1px solid #e8eef5; border-radius:10px; overflow:hidden; background:#fbfdff; }
+.rec-metric { padding:9px 10px; display:flex; flex-direction:column; gap:2px; }
 .rec-metric:nth-child(odd) { border-right:1px solid #e8eef5; }
 .rec-metric:nth-child(-n+2) { border-bottom:1px solid #e8eef5; }
-.rec-metric .rec-big { font-size:22px; font-weight:750; line-height:1; color:#032d60; }
-.rec-metric .rec-fine { font-size:10px; opacity:.62; line-height:1.3; }
+.rec-metric .rec-big { font-size:18px; font-weight:750; line-height:1; color:#032d60; }
+.rec-metric .rec-fine { font-size:9.5px; opacity:.62; line-height:1.25; }
 .rec-metric.warn .rec-big { color:#b3071a; }
-.rec-extra { margin-top:12px; display:flex; flex-direction:column; gap:6px; }
-.rec-extra-row { display:flex; justify-content:space-between; gap:10px; font-size:11.5px; line-height:1.35; }
+.rec-extra { margin-top:8px; display:flex; flex-direction:column; gap:4px; }
+.rec-extra-row { display:flex; justify-content:space-between; gap:10px; font-size:10.5px; line-height:1.3; }
 .rec-extra-row span:first-child { opacity:.55; }
 .rec-extra-row span:last-child { text-align:right; font-weight:550; color:#032d60; }
+@media (max-height: 820px) {
+  .rec-extra { display:none; }
+  .rec-photo { width:52px; height:52px; }
+  .rec-event { font-size:10px; padding:8px 12px 10px; }
+  .hub-logo { width:70px; height:70px; }
+  .hl-disc { width:70px; height:70px; border-radius:18px; }
+  .hl-disc svg { width:32px; height:32px; }
+  .hub-caption { font-size:11px; top:64%; }
+}
 .dots { display:inline-flex; gap:3px; }
 .dot { width:5px; height:5px; border-radius:50%; background:#d4d4d4; }
 .dot.on { background:#005a36; }
@@ -149,7 +168,7 @@ body.scene-2 .record { box-shadow:0 10px 30px rgba(1,118,211,.26); }
 .rec-dt { opacity:.55; text-transform:uppercase; letter-spacing:.04em; font-size:10px; flex:0 0 40%; }
 .rec-dd { text-align:right; font-weight:550; }
 .rec-dd.warn { color:#b3071a; }
-.rec-event { font-size:11px; line-height:1.5; padding:11px 16px 14px; opacity:.92; border-top:1px solid #f0f0f0; display:none; }
+.rec-event { font-size:10.5px; line-height:1.4; padding:9px 12px 11px; opacity:.92; border-top:1px solid #f0f0f0; display:none; }
 .rec-event-label { display:block; font-size:9px; text-transform:uppercase; letter-spacing:.08em; opacity:.6; margin-bottom:4px; font-weight:700; }
 body.scene-1 .ev1, body.scene-2 .ev2, body.scene-3 .ev3 { display:block; }
 
@@ -307,35 +326,39 @@ body.scene-3 .step.on i { background:#fff; color:#1a1a1a; }
 
       <!-- Scene 1: sources -->
       <div class="sources">
-        <div class="src-section-label" style="top:5%">Enterprise Fleet Management</div>
-        <div class="src-tile" style="--i:0;top:13%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3.5"/></svg></div>
-          <div class="src-meta"><div class="src-name">Snowflake</div><div class="src-role">Edge, GeoTab, PeopleSoft, Vault, ICE, etc.</div></div>
+        <div class="src-group">
+          <div class="src-section-label">Enterprise Fleet Management</div>
+          <div class="src-tile" style="--i:0">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+            <div class="src-meta"><div class="src-name">Snowflake</div><div class="src-role">Edge, GeoTab, PeopleSoft, Vault, ICE, etc.</div></div>
+          </div>
+          <div class="src-tile" style="--i:1">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="src-meta"><div class="src-name">CRH</div><div class="src-role">Account and contact data repository</div></div>
+          </div>
+          <div class="src-tile" style="--i:2">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+            <div class="src-meta"><div class="src-name">EFleet Client Portal</div><div class="src-role">Customer portal for fleet management, driver updates, garage locations, fuel, etc.</div></div>
+          </div>
+          <div class="src-tile" style="--i:3">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h6"/></svg></div>
+            <div class="src-meta"><div class="src-name">D&amp;B Hoovers</div><div class="src-role">Corporate reference data tool for account enrichment</div></div>
+          </div>
         </div>
-        <div class="src-tile" style="--i:1;top:22%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div class="src-meta"><div class="src-name">CRH</div><div class="src-role">Account and contact data repository</div></div>
-        </div>
-        <div class="src-tile" style="--i:2;top:31%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
-          <div class="src-meta"><div class="src-name">EFleet Client Portal</div><div class="src-role">Customer portal for fleet management, driver updates, garage locations, fuel, etc.</div></div>
-        </div>
-        <div class="src-tile" style="--i:3;top:40%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h6"/></svg></div>
-          <div class="src-meta"><div class="src-name">D&amp;B Hoovers</div><div class="src-role">Corporate reference data tool for account enrichment</div></div>
-        </div>
-        <div class="src-section-label" style="top:54%">Enterprise Mobility</div>
-        <div class="src-tile" style="--i:4;top:62%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
-          <div class="src-meta"><div class="src-name">Asset Inventory System</div></div>
-        </div>
-        <div class="src-tile" style="--i:5;top:70%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/></svg></div>
-          <div class="src-meta"><div class="src-name">Databricks</div></div>
-        </div>
-        <div class="src-tile" style="--i:6;top:78%">
-          <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div class="src-meta"><div class="src-name">Microsoft CRM</div></div>
+        <div class="src-group">
+          <div class="src-section-label">Enterprise Mobility</div>
+          <div class="src-tile" style="--i:4">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12"/></svg></div>
+            <div class="src-meta"><div class="src-name">Asset Inventory System</div></div>
+          </div>
+          <div class="src-tile" style="--i:5">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/></svg></div>
+            <div class="src-meta"><div class="src-name">Databricks</div></div>
+          </div>
+          <div class="src-tile" style="--i:6">
+            <div class="src-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="src-meta"><div class="src-name">Microsoft CRM</div></div>
+          </div>
         </div>
       </div>
 
@@ -463,6 +486,7 @@ body.scene-3 .step.on i { background:#fff; color:#1a1a1a; }
   function el(t, a) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); return e; }
   var gLines = el('g', {}), gRings = el('g', {}), gFlows = el('g', {}), gNodes = el('g', {}), gPk = el('g', {});
   [gLines, gRings, gFlows, gNodes, gPk].forEach(function (g) { svg.appendChild(g); });
+  function clear(g) { while (g.firstChild) g.removeChild(g.firstChild); }
   function link(d, sc, i, color, o) {
     o = o || {};
     gLines.appendChild(el('path', { d: d, 'class': 'link ' + sc, style: '--i:' + i, fill: 'none', stroke: 'var(--line)', 'stroke-width': 2.4 }));
@@ -478,23 +502,50 @@ body.scene-3 .step.on i { background:#fff; color:#1a1a1a; }
     gRings.appendChild(el('circle', { cx: x, cy: 310, r: 58, fill: 'none', stroke: color, 'stroke-width': 2, 'class': 'ring a ' + sc }));
     gRings.appendChild(el('circle', { cx: x, cy: 310, r: 72, fill: 'none', stroke: color, 'stroke-width': 1.2, opacity: .5, 'class': 'ring b ' + sc }));
   }
-  // scene 1: sources -> Data 360 -> profile
-  [81, 136, 192, 248, 384, 434, 484].forEach(function (y, i) {
-    link('M 330 ' + y + ' C 415 ' + y + ', 415 310, 500 310', 's1', i, 'var(--flow)', { delay: (i * 0.42).toFixed(2) });
-    node(330, y, 's1', i);
-  });
-  link('M 565 310 C 620 310, 640 310, 690 310', 's1', 7, 'var(--packet)', { dur: 2.2, w: 3, r: 4.6 });
-  rings(505, 'var(--hub-ring)', 's1');
-  // scene 2: profile -> console
-  link('M 1030 290 C 1080 290, 1100 250, 1150 250', 's2', 0, 'var(--agent)', { dur: 2.4, w: 3 });
-  link('M 1030 330 C 1080 330, 1100 370, 1150 370', 's2', 1, '#008751', { dur: 2.4, delay: 1.1, w: 3 });
-  // scene 3: console -> headless -> surfaces
-  link('M 1690 310 C 1740 310, 1760 310, 1800 310', 's3', 0, 'var(--head)', { dur: 2.2, w: 3, r: 4.6 });
-  rings(1860, 'var(--head)', 's3');
-  [174, 310, 446].forEach(function (y, i) {
-    link('M 1920 310 C 1970 310, 1970 ' + y + ', 2020 ' + y, 's3', i + 1, 'var(--head)', { dur: 2.8, delay: (i * 0.5).toFixed(2), w: 2.6 });
-    node(2020, y, 's3', i + 1);
-  });
+  function sourceYs() {
+    var world = document.querySelector('.world');
+    if (!world) return [90, 150, 210, 270, 390, 450, 510];
+    var wr = world.getBoundingClientRect();
+    if (!wr.height) return [90, 150, 210, 270, 390, 450, 510];
+    return [].map.call(document.querySelectorAll('.src-tile'), function (t) {
+      var r = t.getBoundingClientRect();
+      return ((r.top + r.height / 2 - wr.top) / wr.height) * 620;
+    });
+  }
+  function surfaceYs() {
+    var world = document.querySelector('.world');
+    if (!world) return [174, 310, 446];
+    var wr = world.getBoundingClientRect();
+    if (!wr.height) return [174, 310, 446];
+    var tiles = document.querySelectorAll('.sf-tile');
+    if (!tiles.length) return [174, 310, 446];
+    return [].map.call(tiles, function (t) {
+      var r = t.getBoundingClientRect();
+      return ((r.top + r.height / 2 - wr.top) / wr.height) * 620;
+    });
+  }
+  function rebuild() {
+    [gLines, gRings, gFlows, gNodes, gPk].forEach(clear);
+    // scene 1: sources -> Data 360 -> profile
+    sourceYs().forEach(function (y, i) {
+      link('M 372 ' + y + ' C 440 ' + y + ', 440 310, 500 310', 's1', i, 'var(--flow)', { delay: (i * 0.42).toFixed(2) });
+      node(372, y, 's1', i);
+    });
+    link('M 565 310 C 620 310, 640 310, 690 310', 's1', 7, 'var(--packet)', { dur: 2.2, w: 3, r: 4.6 });
+    rings(505, 'var(--hub-ring)', 's1');
+    // scene 2: profile -> console
+    link('M 1030 290 C 1080 290, 1100 250, 1150 250', 's2', 0, 'var(--agent)', { dur: 2.4, w: 3 });
+    link('M 1030 330 C 1080 330, 1100 370, 1150 370', 's2', 1, '#008751', { dur: 2.4, delay: 1.1, w: 3 });
+    // scene 3: console -> headless -> surfaces
+    link('M 1690 310 C 1740 310, 1760 310, 1800 310', 's3', 0, 'var(--head)', { dur: 2.2, w: 3, r: 4.6 });
+    rings(1860, 'var(--head)', 's3');
+    surfaceYs().forEach(function (y, i) {
+      link('M 1920 310 C 1970 310, 1970 ' + y + ', 2020 ' + y, 's3', i + 1, 'var(--head)', { dur: 2.8, delay: (i * 0.5).toFixed(2), w: 2.6 });
+      node(2020, y, 's3', i + 1);
+    });
+  }
+  requestAnimationFrame(function () { requestAnimationFrame(rebuild); });
+  window.addEventListener('resize', function () { requestAnimationFrame(rebuild); });
 
   /* ---------- scene navigation ---------- */
   var body = document.body, scene = 1, N = 3;
@@ -510,6 +561,7 @@ body.scene-3 .step.on i { background:#fff; color:#1a1a1a; }
     }
     prev.disabled = scene === 1; next.disabled = scene === N;
     steps.forEach(function (s) { var on = +s.dataset.scene === scene; s.classList.toggle('on', on); s.setAttribute('aria-selected', on); });
+    requestAnimationFrame(rebuild);
   }
   next.addEventListener('click', function () { go(scene + 1); });
   prev.addEventListener('click', function () { go(scene - 1); });
